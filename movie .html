@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Movie Search App</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <style>
@@ -146,6 +147,21 @@ h1{
   color:#38bdf8;
   font-size:14px;
 }
+
+.loadbtn{
+  padding:14px 22px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(to right,#38bdf8,#818cf8);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.loadbtn:hover{
+  transform:scale(1.04);
+}
+
 </style>
 
   <div class="container">
@@ -167,8 +183,8 @@ h1{
     <!-- Movies Container -->
   <div id="movies"> 
   </div>
+  <button id="loadbtn" class="loadbtn">Load more</button>
 </div>
-
   <script src="movie.js"></script>
 </body>
 </html>

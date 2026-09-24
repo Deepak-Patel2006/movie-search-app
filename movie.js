@@ -2,7 +2,9 @@ const field = document.getElementById('searchInput');
 const button = document.getElementById('searchBtn');
 const message = document.getElementById('message');
 const movies = document.getElementById('movies');
+const loadbtn = document.getElementById('loadbtn')
 
+loadbtn.style.display = "none";
 
 function setting(movie){
     message.innerText = "";
@@ -41,16 +43,16 @@ function setting(movie){
 
 }
 
-async function movie(name){
-    let result ;
-    let url = `https://www.omdbapi.com/?apikey=26fcc033&s=${name}`;
+async function movie(name,page){
+
+    let url = `https://www.omdbapi.com/?apikey=26fcc033&s=${name}&page=${page}`;
     let response = await fetch(url)
     let data = await response.json();
-
+    // console.log(data.totalResults);
     let search = data.Search;
 
+
     if(data.Response === "False"){
-   
         message.innerText = 'Movie not found....... !';
         loader.style.display = "none";
         return;    
@@ -61,6 +63,7 @@ async function movie(name){
            setting(search[i]);
 
         }
+        loadbtn.style.display = "block";
     }
     
 }
@@ -74,12 +77,12 @@ button.addEventListener('click',()=>{
         movies.innerHTML = "";
         message.innerText = 'Searching......';
         loader.style.display = "block";
-        movie(contain);
+        movie(contain,1);
 
     }else{
         message.innerText = 'Please enter a movie name';
     }
-    field.value = '';
+    // field.value = '';
 });
 
 field.addEventListener('keypress',(e)=> {
@@ -87,6 +90,15 @@ field.addEventListener('keypress',(e)=> {
         button.click(); 
     }
 });
+
+loadbtn.addEventListener('click',()=>{
+    let contain = field.value;
+    let currentpage = Math.ceil(movies.childElementCount / 10) + 1;
+    console.log(currentpage);
+    
+    movie(contain, currentpage);
+});
+
 
 /*
 // Another approach
